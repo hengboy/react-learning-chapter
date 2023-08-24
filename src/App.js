@@ -2,6 +2,7 @@ import './App.css';
 import {useState} from "react";
 import Clock from "./clock/Clock";
 import Gallery from "./gallery/Gallery";
+import PackingList from "./packlist/PackingList";
 
 function App() {
     const [color, setColor] = useState('lightcoral');
@@ -17,6 +18,7 @@ function App() {
             </p>
             <Clock color={color}/>
             <Gallery/>
+            <PackingList/>
         </div>
     );
 }
