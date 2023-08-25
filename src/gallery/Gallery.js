@@ -27,7 +27,6 @@ let profiles = persons.map(person => {
 });
 export default function Gallery() {
     return (<div>
-        <h1>Notable Scientists</h1>
         {profiles}
     </div>);
 }
