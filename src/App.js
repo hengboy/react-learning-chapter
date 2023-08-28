@@ -5,10 +5,11 @@ import LearningThree from "./learning/LearningThree";
 import LearningFour from "./learning/LearningFour";
 import LearningFive from "./learning/LearningFive";
 import LearningSix from "./learning/LearningSix";
+import LearningSeven from "./learning/LearningSeven";
 
 function App() {
     return (
-        <LearningSix/>
+        <LearningSeven/>
     );
 }
 
