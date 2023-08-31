@@ -1,17 +1,130 @@
 import {useState} from "react";
 
 export default function LearningSeven() {
-    const [index, setIndex] = useState(0);
+    return (
+        <div>
+            <h2>Part 1</h2>
+            <Gallery/>
+            <hr/>
+            <h2>Part 2</h2>
+            <UnitTestForm/>
+            <hr/>
+            <h2>Part 3</h2>
+            <FeedbackForm/>
+            <h2>Part 4</h2>
+            <Greet/>
+        </div>
+    );
+}
 
+function Greet() {
     function handleClick() {
+        let name = prompt('What is your name?');
+        alert(`Hello, ${name}!`);
+    }
+
+    return (
+        <button onClick={handleClick}>
+            Greet
+        </button>
+    );
+}
+
+/**
+ * 单元测试反馈表单
+ * @constructor
+ */
+function FeedbackForm() {
+    const [isSent, setIsSent] = useState(false);
+    const [message, setMessage] = useState('');
+    if (isSent) {
+        return <h1>Thank you!</h1>;
+    } else {
+        return (
+            <form onSubmit={e => {
+                e.preventDefault();
+                alert(`Sending: "${message}"`);
+                setIsSent(true);
+            }}>
+        <textarea
+            placeholder="Message"
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+        />
+                <br/>
+                <button type="submit">Send</button>
+            </form>
+        );
+    }
+}
+
+/**
+ * 单元测试表单
+ * @returns {JSX.Element}
+ * @constructor
+ */
+function UnitTestForm() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    function handleChangeFirstName(e) {
+        setFirstName(e.target.value);
+    }
+
+    function handleChangeLastName(e) {
+        setLastName(e.target.value);
+    }
+
+    function handleResetClick() {
+        setFirstName('');
+        setLastName('');
+    }
+
+    return (
+        <form onSubmit={e => e.preventDefault()}>
+            <input
+                placeholder="姓"
+                value={firstName}
+                onChange={handleChangeFirstName}
+            />
+            <input
+                placeholder="名"
+                value={lastName}
+                onChange={handleChangeLastName}
+            />
+            <h1>Hi, {firstName} {lastName}</h1>
+            <button onClick={handleResetClick}>重新输入
+            </button>
+        </form>
+
+    );
+}
+
+function Gallery() {
+    const [index, setIndex] = useState(0);
+    const [showMore, setShowMore] = useState(false);
+
+    function handlePrevClick() {
+        setIndex(index <= 0 ? 0 : index - 1);
+    }
+
+    function handleNextClick() {
         setIndex(index < sculptureList.length - 1 ? index + 1 : 0);
+    }
+
+    function handleShowMoreClick() {
+        setShowMore(!showMore);
     }
 
     let sculpture = sculptureList[index];
     return (
-        <>
-            <button onClick={handleClick}>
-                Next
+        <div style={{marginTop: 10, textAlign: "center"}}>
+            <button onClick={handlePrevClick}>
+                上一个
+            </button>
+            {' '}
+            <button onClick={handleNextClick}>
+                下一个
             </button>
             <h2>
                 <i>{sculpture.name} </i>
@@ -24,13 +137,17 @@ export default function LearningSeven() {
                 src={sculpture.url}
                 alt={sculpture.alt}
             />
-            <p>
-                {sculpture.description}
-            </p>
-        </>
+            <button onClick={handleShowMoreClick}>
+                {!showMore ? '显示' : '隐藏'}更多
+            </button>
+            {showMore &&
+                <p>
+                    {sculpture.description}
+                </p>
+            }
+        </div>
     );
 }
-
 
 const sculptureList = [{
     name: 'Homenaje a la Neurocirugía',
