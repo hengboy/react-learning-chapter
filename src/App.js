@@ -9,10 +9,11 @@ import LearningSeven from "./learning/LearningSeven";
 import LearningEight from "./learning/LearningEight";
 import LearningNine from "./learning/LearningNine";
 import LearningTen from "./learning/LearningTen";
+import LearningEleven from "./learning/LearningEleven";
 
 function App() {
     return (
-        <LearningTen/>
+        <LearningEleven/>
     );
 }
 

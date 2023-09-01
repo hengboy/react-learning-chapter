@@ -36,7 +36,12 @@ function Form() {
     const [person, setPerson] = useState({
         firstName: 'Barbara',
         lastName: 'Hepworth',
-        email: 'bhepworth@sculpture.com'
+        email: 'bhepworth@sculpture.com',
+        artwork: {
+            title: 'Blue Nana',
+            city: 'Hamburg',
+            image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+        }
     });
 
 
