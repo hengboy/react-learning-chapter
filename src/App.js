@@ -14,10 +14,12 @@ import LearningTwelve from "./learning/LearningTwelve";
 import LearningThirteen from "./learning/LearningThirteen";
 import LearningFourteen from "./learning/LearningFourteen";
 import LearningFifteen from "./learning/LearningFifteen";
+import LearningSixteen from "./learning/LearningSixteen";
+import LearningSeventeen from "./learning/LearningSeventeen";
 
 function App() {
     return (
-        <LearningFifteen/>
+        <LearningSeventeen/>
     );
 }
 
