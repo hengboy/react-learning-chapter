@@ -1,42 +1,56 @@
 import {useState} from "react";
 import AddTask from "./part1/AddTask";
 import TaskList from "./part1/TaskList";
-import {initialTasks} from "./part1/data";
+import {useReducer} from 'react';
 import './style.css';
+import {initialTasks} from "./part1/data";
+import TasksReducer from "./part1/TasksReducer";
+import TasksImmerReducer from "./part1/TasksImmerReducer";
+import {useImmerReducer} from "use-immer";
 
 let nextId = 3;
 export default function Part1() {
-    const [tasks, setTasks] = useState(initialTasks);
+    // tasks：state定义
+    // dispatchAction：派发用户的动作
+    // tasksReducer：自定义的用来操作tasks state的函数
+    // initialTasks：tasks初始化的值
+
+    //const [tasks, dispatchAction] = useReducer(TasksReducer, initialTasks);
+
+    // use immer简化
+    const [tasks, dispatchAction] = useImmerReducer(TasksImmerReducer, initialTasks);
 
     function handleAddTask(text) {
-        setTasks([...tasks, {
-            id: nextId++, text: text, done: false,
-        },]);
+        dispatchAction({
+            type: 'added',
+            id: nextId++,
+            text: text,
+            done: false,
+        });
     }
 
     function handleChangeTask(task) {
-        setTasks(tasks.map((t) => {
-            if (t.id === task.id) {
-                return task;
-            } else {
-                return t;
-            }
-        }));
+        dispatchAction({
+            type: 'changed',
+            task: task
+        });
     }
 
     function handleDeleteTask(taskId) {
-        setTasks(tasks.filter((t) => t.id !== taskId));
+        dispatchAction({
+            type: 'deleted',
+            id: taskId
+        });
     }
 
     return (<>
-            <h1>布拉格的行程安排</h1>
-            <AddTask onAddTask={handleAddTask}/>
-            <TaskList
-                tasks={tasks}
-                onChangeTask={handleChangeTask}
-                onDeleteTask={handleDeleteTask}
-            />
-        </>);
+        <AddTask onAddTask={handleAddTask}/>
+        <TaskList
+            tasks={tasks}
+            onChangeTask={handleChangeTask}
+            onDeleteTask={handleDeleteTask}
+        />
+    </>);
 }
 
 
